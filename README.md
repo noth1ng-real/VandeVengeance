@@ -9,12 +9,12 @@ cl -O2 /GS- /EHsc /I. /D WIN32_LEAN_AND_MEAN /Fe:output.exe *.cpp
 - `/EHsc` - Standard C++ Exception Handling
 - `/D WIN32_LEAN_AND_MEAN` - Streamline compilation
 - `/I.` - search for header files in `./`
-
-- Compile:
+---
+Compile:
 ```
 compile.bat
 ```
-- Or specify `.exe` output name:
+ Or specify `.exe` output name:
 ```
 compile.bat output.exe
 ```
