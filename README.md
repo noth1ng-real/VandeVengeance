@@ -10,6 +10,7 @@ cl -O2 /GS- /EHsc /I. /D WIN32_LEAN_AND_MEAN /Fe:output.exe *.cpp
 - `/D WIN32_LEAN_AND_MEAN` - Streamline compilation
 - `/I.` - search for header files in `./`
 
+- Compile:
 ```
 compile.bat
 ```
