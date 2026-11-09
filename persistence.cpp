@@ -1,7 +1,7 @@
 #include <persistence.h>
 
 bool getPath(wchar_t* exePath, DWORD bufferSize) {
-    DWORD rv = GetModuleFileName(NULL, exePath, bufferSize);
+    DWORD rv = GetModuleFileNameW(NULL, exePath, bufferSize);
 
     if (rv == 0 || rv > bufferSize) {
         return false;
@@ -14,9 +14,9 @@ bool WriteRegistryRun(wchar_t* path) {
     HKEY hKey;
     LONG rv;
     
-    rv = RegCreateKeyEx(
+    rv = RegCreateKeyExW(
         HKEY_CURRENT_USER,
-        L"\Software\Microsoft\Windows\CurrentVersion\Run",
+        L"\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
         0,
         NULL,
         REG_OPTION_NON_VOLATILE,
