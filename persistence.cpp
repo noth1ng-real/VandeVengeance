@@ -16,7 +16,7 @@ bool WriteRegistryRun(wchar_t* path) {
     
     rv = RegCreateKeyExW(
         HKEY_CURRENT_USER,
-        L"\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+        L"Software\\Microsoft\\Windows\\CurrentVersion\\Run",
         0,
         NULL,
         REG_OPTION_NON_VOLATILE,
