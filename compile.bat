@@ -13,7 +13,7 @@ echo Compiling program into bin\%OUTPUT_NAME%...
 
 if exist "bin\%OUTPUT_NAME%" del /f /q "bin\%OUTPUT_NAME%"
 
-cl -O2 /GS- /EHsc /I. /D WIN32_LEAN_AND_MEAN /Fe:bin\%OUTPUT_NAME% *.cpp
+cl -O2 /GS- /EHsc /Isrc /D WIN32_LEAN_AND_MEAN /Fe:bin\%OUTPUT_NAME% src\*.cpp
 
 if %errorlevel% equ 0 (
     echo Compilation successful!
