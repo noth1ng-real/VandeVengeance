@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
         std::cerr << "Kb Hook Installation Failed: " << GetLastError() << std::endl;
         return 1;
     }
-
+    
     MSG msg;
     BOOL bRet;
     while (bRet = GetMessage(&msg, NULL, 0, 0) != 0) {

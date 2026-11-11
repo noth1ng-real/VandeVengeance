@@ -7,9 +7,14 @@ if "%~1"=="" (
     set "OUTPUT_NAME=%~1"
 )
 
-echo Compiling program into %OUTPUT_NAME%...
+if not exist "bin" mkdir "bin"
 
-cl -O2 /GS- /EHsc /I. /D WIN32_LEAN_AND_MEAN /Fe:%OUTPUT_NAME% *.cpp
+echo Compiling program into bin\%OUTPUT_NAME%...
+
+if exist "bin\%OUTPUT_NAME%" del /f /q "bin\%OUTPUT_NAME%"
+
+cl -O2 /GS- /EHsc /I. /D WIN32_LEAN_AND_MEAN /Fe:bin\%OUTPUT_NAME% *.cpp
+
 if %errorlevel% equ 0 (
     echo Compilation successful!
 ) else (
