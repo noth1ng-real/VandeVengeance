@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <iostream>
 #include <fstream>
 
 class Keylogger {
