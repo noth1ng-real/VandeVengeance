@@ -24,12 +24,21 @@ int main(int argc, char* argv[]) {
         0
     );
 
-    if (hKeyboardHook == NULL) std::cerr << "Kb Hook Installation Failed: " << GetLastError() << std::endl;
+    if (hKeyboardHook == NULL) {
+        std::cerr << "Kb Hook Installation Failed: " << GetLastError() << std::endl;
+        return 1;
+    }
 
     MSG msg;
-    while (GetMessage(&msg, NULL, 0, 0)) {
-        TranslateMessage(&msg); 
-        DispatchMessage(&msg);
+    BOOL bRet;
+    while (bRet = GetMessage(&msg, NULL, 0, 0) != 0) {
+        if (bRet == -1) {
+            std::cerr << "GetMessage failed: " << GetLastError() << std::endl;
+            break;
+        } else {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
     }
 
     UnhookWindowsHookEx(hKeyboardHook);
