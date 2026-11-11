@@ -27,5 +27,5 @@ Thumbs.db
 # Logs
 *.txt
 
-# Binary Texting
+# Binary Testing
 !bin/*.exe
